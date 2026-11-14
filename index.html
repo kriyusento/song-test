@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Music">
+<title>Music</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+<link rel="icon" href="assets/icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- BACKGROUND LAYER -->
+<div class="bg-layer">
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <div class="bg-image" id="bgImage"></div>
+  <video class="bg-video" id="bgVideo" muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
+  <canvas id="visualizer"></canvas>
+</div>
+
+<!-- APP -->
+<div class="app" id="app">
+
+  <div class="overlay" id="overlay"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z" fill="currentColor"/></svg>
+      </div>
+      <span class="brand-name"></span>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-item active" data-view="home">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="currentColor"/></svg>
+        <span>Beranda</span>
+      </button>
+      <button class="nav-item" data-view="library">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h10v2H4z" fill="currentColor"/></svg>
+        <span>Pustaka</span>
+      </button>
+      <button class="nav-item" data-view="liked">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor"/></svg>
+        <span>Disukai</span>
+      </button>
+    </nav>
+
+    <div class="playlist-header">
+      <h3>Playlist Saya</h3>
+      <span id="trackCount">0 lagu</span>
+    </div>
+    <ul class="sidebar-playlist" id="sidebarPlaylist"></ul>
+  </aside>
+
+  <main class="main" id="main">
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Menu">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" fill="currentColor"/></svg>
+      </button>
+      <h1 class="page-title" id="pageTitle">Beranda</h1>
+      <div class="topbar-spacer"></div>
+    </header>
+
+    <section class="hero" id="hero">
+      <div class="hero-info">
+        <p class="hero-tag">SEDANG DIPUTAR</p>
+        <h2 class="hero-title" id="heroTitle">Belum ada lagu</h2>
+        <p class="hero-artist" id="heroArtist">Pilih lagu untuk mulai</p>
+        <div class="hero-actions">
+          <button class="btn-primary" id="heroPlay">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+            <span>Putar</span>
+          </button>
+          <button class="btn-ghost" id="heroShuffle">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z" fill="currentColor"/></svg>
+            <span>Acak</span>
+          </button>
+        </div>
+      </div>
+      <div class="hero-cover-wrap">
+        <img id="heroCover" class="hero-cover" alt="Cover">
+        <div class="hero-cover-glow"></div>
+      </div>
+    </section>
+
+    <section class="tracks-section">
+      <div class="section-header">
+        <h3 id="sectionTitle">Daftar Lagu</h3>
+        <span id="totalDuration">Total —:—</span>
+      </div>
+      <ul class="track-list" id="trackList"></ul>
+    </section>
+  </main>
+</div>
+
+<!-- PLAYER BAR -->
+<div class="player-bar" id="playerBar">
+  <div class="player-left">
+    <img id="playerCover" class="player-cover" alt="">
+    <div class="player-info">
+      <div class="player-title" id="playerTitle">Belum ada lagu</div>
+      <div class="player-artist" id="playerArtist">—</div>
+    </div>
+    <button class="icon-btn like-btn" id="likeBtn" aria-label="Suka">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z" fill="currentColor"/></svg>
+    </button>
+  </div>
+
+  <div class="player-center">
+    <div class="controls">
+      <button class="icon-btn" id="shuffleBtn" title="Acak" aria-label="Acak">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z" fill="currentColor"/></svg>
+      </button>
+      <button class="icon-btn" id="prevBtn" title="Sebelumnya" aria-label="Sebelumnya">
+        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M6 6h2v12H6zM18 18V6l-8.5 6L18 18z" fill="currentColor"/></svg>
+      </button>
+      <button class="play-btn" id="playBtn" title="Putar" aria-label="Putar">
+        <svg viewBox="0 0 24 24" width="24" height="24" id="playIcon"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+      </button>
+      <button class="icon-btn" id="nextBtn" title="Berikutnya" aria-label="Berikutnya">
+        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" fill="currentColor"/></svg>
+      </button>
+      <button class="icon-btn" id="repeatBtn" title="Ulangi" aria-label="Ulangi">
+        <svg viewBox="0 0 24 24" width="20" height="20" id="repeatIcon"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z" fill="currentColor"/></svg>
+      </button>
+    </div>
+    <div class="progress-row">
+      <span class="time" id="currentTime">0:00</span>
+      <input type="range" id="progressBar" min="0" max="100" value="0" step="0.1" aria-label="Progress">
+      <span class="time" id="duration">0:00</span>
+    </div>
+  </div>
+
+  <div class="player-right">
+    <button class="icon-btn" id="muteBtn" title="Bisukan" aria-label="Bisukan">
+      <svg viewBox="0 0 24 24" width="20" height="20" id="volumeIcon"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" fill="currentColor"/></svg>
+    </button>
+    <input type="range" id="volumeBar" min="0" max="1" step="0.01" value="0.8" aria-label="Volume">
+  </div>
+</div>
+
+<audio id="audio" preload="metadata"></audio>
+
+<script src="script.js"></script>
+</body>
+</html>
