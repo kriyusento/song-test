@@ -48,6 +48,36 @@ const SONGS = [
     src: "assets/music/Die For You.mp3",
     cover: "assets/covers/Die For You.jpg",
   },
+  {
+    title: "Great Expectation",
+    artist: "Unknown",
+    src: "assets/music/Great Expectation.mp3",
+    cover: "assets/covers/Great Expectation.jpg",
+  },
+  {
+    title: "Daylight",
+    artist: "Unknown",
+    src: "assets/music/Daylight.mp3",
+    cover: "assets/covers/Daylight.jpg",
+  },
+  {
+    title: "張齊山",
+    artist: "Unknown",
+    src: "assets/music/張齊山.mp3",
+    cover: "assets/covers/張齊山.jpg",
+  },
+  {
+    title: "这是你期盼的长大吗",
+    artist: "Unknown",
+    src: "assets/music/这是你期盼的长大吗.mp3",
+    cover: "assets/covers/这是你期盼的长大吗.jpg",
+  },
+  {
+    title: "red scarf",
+    artist: "Unknown",
+    src: "assets/music/red scarf.mp3",
+    cover: "assets/covers/red scarf.jpg",
+  },
 ];
 
 /* Cover default */
@@ -404,7 +434,7 @@ function setBackground(src) {
 
       bgVideo.style.opacity = "1";
 
-      if (!audio.paused) bgVideo.play().catch(() => {});
+      if (!audio.paused) bgVideo.play().catch(() => { });
     };
 
     bgVideo.onerror = () => {
@@ -559,7 +589,7 @@ function nextTrack(auto = false, skipRepeatOne = false) {
 
   if (auto && !skipRepeatOne && state.repeat === "one") {
     audio.currentTime = 0;
-    audio.play().catch(() => {});
+    audio.play().catch(() => { });
     return;
   }
 
@@ -657,8 +687,8 @@ function updatePlaybackUI() {
     state.repeat === "one"
       ? "Ulangi satu lagu"
       : state.repeat === "all"
-      ? "Ulangi semua"
-      : "Ulangi";
+        ? "Ulangi semua"
+        : "Ulangi";
 
   repeatBtn.title = repLabel;
   repeatBtn.setAttribute("aria-label", repLabel);
@@ -703,7 +733,7 @@ audio.addEventListener("play", () => {
   setIsPlaying(true);
   resumeAudioContext();
 
-  if (bgVideo.getAttribute("src")) bgVideo.play().catch(() => {});
+  if (bgVideo.getAttribute("src")) bgVideo.play().catch(() => { });
 });
 
 audio.addEventListener("playing", () => {
@@ -980,7 +1010,7 @@ function setupAudioContext() {
     /* Pastikan suara tetap keluar bila rantai gagal di tengah */
     try {
       if (sourceNode && audioCtx) sourceNode.connect(audioCtx.destination);
-    } catch (_) {}
+    } catch (_) { }
   }
 }
 
