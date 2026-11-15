@@ -44,7 +44,7 @@ const SONGS = [
   },
   {
     title: "Die For You",
-    artist: "Adele",
+    artist: "The Weeknd",
     src: "assets/music/Die For You.mp3",
     cover: "assets/covers/Die For You.jpg",
   },
