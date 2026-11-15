@@ -11,42 +11,42 @@ const SONGS = [
     artist: "JVKE",
     src: "assets/music/golden hour.mp3",
     cover: "assets/covers/cover1.jpg",
-    background: "assets/background/golden hour.mp4", // video didukung
   },
   {
     title: "Ordinary",
     artist: "Alex Warren",
     src: "assets/music/ordinary.mp3",
     cover: "assets/covers/ordinary.jpg",
-    background: "assets/background/ordinary.mp4",
   },
   {
     title: "Hong Kong",
     artist: "The Weeknd",
     src: "assets/music/hong-kong.mp3",
     cover: "assets/covers/hong-kong.jpg",
-    background: "assets/background/hong-kong.mp4",
   },
   {
     title: "Skyfall",
     artist: "Adele",
     src: "assets/music/skyfall.mp3",
     cover: "assets/covers/skyfall.jpg",
-    background: "assets/background/skyfall.mp4"
   },
   {
     title: "海嶼妳",
     artist: "馬也_Crabbit / Cole先生",
     src: "assets/music/海嶼妳.mp3",
     cover: "assets/covers/海嶼妳.jpg",
-    background: "assets/background/海嶼妳.mp4",
   },
   {
     title: "我走後",
     artist: "en",
     src: "assets/music/我走後.mp3",
     cover: "assets/covers/我走後.jpg",
-    background: "assets/background/我走後.mp4"
+  },
+  {
+    title: "Die For You",
+    artist: "Adele",
+    src: "assets/music/Die For You.mp3",
+    cover: "assets/covers/Die For You.jpg",
   },
 ];
 
