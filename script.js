@@ -67,12 +67,25 @@ const SONGS = [
     cover: "assets/covers/張齊山.jpg",
   },
   {
-    title: "red scarf",
+    title: "Red Scarf",
     artist: "weibird",
     src: "assets/music/red scarf.mp3",
     cover: "assets/covers/red scarf.jpg",
   },
+  {
+    title: "天后",
+    artist: "Andrew Tan",
+    src: "assets/music/天后.mp3",
+    cover: "assets/covers/天后.jpg",
+  },
+  {
+    title: "Jia Bin",
+    artist: "张远",
+    src: "assets/music/Jia Bin.mp3",
+    cover: "assets/covers/Jia Bin.jpg",
+  },
 ];
+
 
 /* Cover default */
 const DEFAULT_COVER =
